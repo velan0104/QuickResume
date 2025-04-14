@@ -1,0 +1,83 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url  	    = env("DATABASE_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model Resume {
+  id              String           @id @default(cuid())
+  userId          String
+
+  title           String?
+  description     String?
+
+  photoUrl        String?
+  colorHex        String           @default("#000000")
+  borderStyle     String           @default("squircle")
+  summary         String?
+  firstName       String?
+  lastName        String?
+  jobTitle        String?
+  city            String?
+  country         String?
+  phone           String?
+  email           String?
+  skills          String[]
+
+  workExperiences WorkExperience[]
+  educations       Education[]
+
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  @@map("resumes")
+}
+
+model WorkExperience {
+  id          String    @id @default(cuid())
+  position    String?
+  company     String?
+  startDate   DateTime?
+  endDate     DateTime?
+  description String?
+  resumeId    String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  resume      Resume    @relation(fields: [resumeId], references: [id])
+
+  @@map("work_experiences")
+}
+
+model Education {
+  id        String    @id @default(cuid())
+  degree    String?
+  school    String?
+  startDate DateTime?
+  endDate   DateTime?
+  resumeId  String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  resume    Resume    @relation(fields: [resumeId], references: [id])
+
+  @@map("educations")
+}
+
+model UserSubscription {
+  id                      String   @id @default(cuid())
+  userId                  String   @unique
+  stripeCustomerId        String   @unique
+  stripeSubscriptionId    String   @unique
+  stripePriceId           String
+  stripeCurrentPeriodEnd  DateTime
+  stripeCancelAtPeriodEnd Boolean  @default(false)
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+
+  @@map("user_subscriptions")
+}
