@@ -3,7 +3,7 @@ import usePremiumModal from "@/hooks/usePremiumModal";
 import { ResumeValues } from "@/lib/validation";
 import { WandSparklesIcon } from "lucide-react";
 import { useState } from "react";
-import { useSubscriptionLevel } from "../../SubscriptionLevelProvider";
+// import { useSubscriptionLevel } from "../../SubscriptionLevelProvider";
 import LoadingButton from "@/components/LoadingButton";
 import { generateSummary } from "./action";
 import { canUseAITools } from "@/lib/permissions";
@@ -17,7 +17,7 @@ export default function GenerateSummaryButton({
   resumeData,
   onSummaryGenerated,
 }: GenerateSummaryButtonProps) {
-  const subscriptionLevel = useSubscriptionLevel();
+  // const subscriptionLevel = useSubscriptionLevel();
 
   const premiumModal = usePremiumModal();
 
@@ -26,7 +26,7 @@ export default function GenerateSummaryButton({
   const [loading, setLoading] = useState(false);
 
   async function handleClick() {
-    if (!canUseAITools(subscriptionLevel)) {
+    if (!canUseAITools()) {
       premiumModal.setOpen(true);
       return;
     }

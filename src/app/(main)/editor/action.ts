@@ -1,8 +1,8 @@
 "use server";
 
-import { canCreateResume, canUseCustomizations } from "@/lib/permissions";
+import { canUseCustomizations } from "@/lib/permissions";
 import prisma from "@/lib/prisma";
-import { getUserSubscriptionLevel } from "@/lib/subscription";
+// import { getUserSubscriptionLevel } from "@/lib/subscription";
 import { resumeSchema, ResumeValues } from "@/lib/validation";
 import { auth } from "@clerk/nextjs/server";
 import { del, put } from "@vercel/blob";
@@ -22,7 +22,7 @@ export async function saveResume(values: ResumeValues) {
     throw new Error("User not authenticated");
   }
 
-  const subscriptionLevel = await getUserSubscriptionLevel(userId);
+  // const subscriptionLevel = await getUserSubscriptionLevel(userId);
 
   // if (!id) {
   //   const resumeCount = await prisma.resume.count({ where: { userId } });
@@ -48,7 +48,11 @@ export async function saveResume(values: ResumeValues) {
     (resumeValues.colorHex &&
       resumeValues.colorHex !== existingResume?.colorHex);
 
-  if (hasCustomizations && !canUseCustomizations(subscriptionLevel)) {
+  // if (hasCustomizations && !canUseCustomizations(subscriptionLevel)) {
+  //   throw new Error("Customizations not allowed for this subscription level");
+  // }
+
+  if (hasCustomizations && !canUseCustomizations()) {
     throw new Error("Customizations not allowed for this subscription level");
   }
 

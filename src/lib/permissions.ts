@@ -15,13 +15,19 @@ export function canCreateResume(
   return currentResumeCount < maxResumes;
 }
 
-export function canUseAITools(subscriptionLevel: SubscriptionLevel) {
-  // return subscriptionLevel !== "free";
+// export function canUseAITools(subscriptionLevel: SubscriptionLevel) {
+//   return subscriptionLevel !== "free";
 
+// }
+
+// export function canUseCustomizations(subscriptionLevel: SubscriptionLevel) {
+//   return subscriptionLevel === "pro_plus";
+// }
+
+export function canUseAITools() {
   return true;
 }
 
-export function canUseCustomizations(subscriptionLevel: SubscriptionLevel) {
-  // return subscriptionLevel === "pro_plus";
+export function canUseCustomizations() {
   return true;
 }
