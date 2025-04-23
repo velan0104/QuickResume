@@ -39,8 +39,8 @@ export default async function Page() {
   return (
     <main className="mx-auto w-full max-w-7xl space-y-6 px-3 py-6">
       <CreateResumeButton
-        canCreate={canCreateResume(subscriptionLevel, totalCount)}
-        // canCreate={true}
+        // canCreate={canCreateResume(subscriptionLevel, totalCount)}
+        canCreate={true}
       />
       <div className="space-y-1">
         <h1 className="text-3xl font-bold">Your resumes</h1>

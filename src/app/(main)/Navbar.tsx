@@ -23,9 +23,7 @@ export default function Navbar() {
             height={35}
             className="rounded-full"
           />
-          <span className="text-xl font-bold tracking-tight">
-            AI Resume Builder
-          </span>
+          <span className="text-xl font-bold tracking-tight">Quick Resume</span>
         </Link>
         <div className="flex items-center gap-3">
           <ThemeToggle />
